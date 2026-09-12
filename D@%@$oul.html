@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>D@%@$oul Studio — Bookmark + Data URL Maker</title>
+<style>
+  body{background:#1e1e1e;color:#ccc;font-family:Consolas,monospace;display:flex;flex-direction:column;align-items:center;padding:40px 20px;margin:0}
+  .logo{font-size:34px;font-weight:bold;color:#4ec9b0;text-shadow:0 0 20px rgba(78,201,176,.4)}
+  .logo span{color:#007acc}
+  .card{background:#252526;border:1px solid #3b3b3b;border-radius:10px;padding:24px;max-width:760px;width:100%;margin-top:20px}
+  .drag-link{display:block;text-align:center;background:#8a2be2;color:#fff;font-weight:bold;font-size:16px;padding:14px;border-radius:8px;text-decoration:none;margin:10px 0;transition:.2s}
+  .drag-link:hover{background:#9b4ff0}
+  textarea{width:100%;background:#111;color:#eee;border:1px solid #444;border-radius:6px;padding:8px;box-sizing:border-box;font-family:monospace;resize:vertical}
+  #bm{height:120px;color:#c792ea}
+  ol{line-height:1.9}
+  code{background:#111;padding:2px 6px;border-radius:4px;color:#4ec9b0;word-break:break-all}
+  .step{color:#858585;font-size:12px;text-transform:uppercase;letter-spacing:1px;margin-top:18px}
+</style>
+</head>
+<body>
+  <div class="logo">D@%@$oul <span>Studio</span></div>
+  <div style="color:#858585">HTML → Named Bookmark + Data URL 龱𝓝丫〤丂龱ㄩ㇄</div>
+
+  <div class="card">
+    <div class="step">Install</div>
+    <p>Press <code>Ctrl+Shift+B</code> to show the bookmarks bar, then <b>drag this button onto it</b>:</p>
+    <a class="drag-link" href="javascript:(function(){function el(t,c,p){var e=document.createElement(t);e.style.cssText=c;if(p)p.appendChild(e);return e}var d=el('div','position:fixed;top:16px;right:16px;width:480px;max-height:94vh;overflow:auto;background:#1e1e1e;color:#ccc;border:1px solid #007acc;border-radius:10px;padding:14px;z-index:2147483647;font:13px/1.5 Consolas,monospace;box-shadow:0 12px 40px rgba(0,0,0,.7)',document.body);var t=el('div','display:flex;justify-content:space-between;align-items:center;margin-bottom:8px',d);t.innerHTML='<b style=color:#4ec9b0>D@%@$oul Studio</b>';var x=el('button','background:#333;color:#fff;border:0;border-radius:4px;cursor:pointer;padding:2px 8px',t);x.textContent='\u2715';x.onclick=function(){d.remove()};var nm=el('input','width:100%;background:#111;color:#fff;border:1px solid #444;border-radius:6px;padding:6px;box-sizing:border-box;margin-bottom:6px',d);nm.value='D@%@$oul';nm.placeholder='Bookmark name for this page...';var ht=el('textarea','width:100%;height:150px;background:#111;color:#eee;border:1px solid #444;border-radius:6px;padding:6px;box-sizing:border-box',d);ht.placeholder='Paste full HTML here...';var br=el('div','margin:8px 0;display:flex;flex-wrap:wrap;gap:6px',d);var out=el('textarea','width:100%;height:90px;background:#111;color:#4ec9b0;border:1px solid #444;border-radius:6px;padding:6px;box-sizing:border-box',d);out.readOnly=true;out.placeholder='data:text/html;base64,...';var ba=el('div','margin-top:8px',d);var nt=el('div','margin-top:6px;font-size:11px;color:#858585',d);function enc(s){return btoa(unescape(encodeURIComponent(s)))}function toBm(b64){return 'javascript:(function(){document.open();document.write(decodeURIComponent(escape(atob(`'+b64+'`))));document.close()})()'}function b(txt,bg,fn){var btn=el('button','background:'+bg+';color:#fff;border:0;border-radius:5px;padding:6px 10px;cursor:pointer;font-weight:600',br);btn.textContent=txt;btn.onclick=fn;return btn}b('Convert','#007acc',function(){out.value='data:text/html;charset=utf-8;base64,'+enc(ht.value)});b('Copy URL','#b58900',function(){out.select();navigator.clipboard?navigator.clipboard.writeText(out.value):document.execCommand('copy')});b('Test','#2d8a4e',function(){if(!out.value)out.value='data:text/html;charset=utf-8;base64,'+enc(ht.value);var f=el('iframe','position:fixed;bottom:16px;right:500px;width:420px;height:320px;border:1px solid #007acc;border-radius:8px;z-index:2147483647;background:#fff',document.body);f.src=out.value});b('\u2b50 Make Bookmark','#8a2be2',function(){if(!ht.value.trim()){nt.textContent='Paste some HTML first!';return}ba.innerHTML='';var a=el('a','display:block;background:#4ec9b0;color:#111;padding:10px;border-radius:6px;text-align:center;font-weight:bold;cursor:grab;text-decoration:none;margin-bottom:6px',ba);a.href=toBm(enc(ht.value));a.textContent=nm.value||'D@%@$oul';nt.textContent='Drag the green link to your bookmarks bar. It saves your page with that name.'});b('Copy Bookmark','#8a2be2',function(){var a=ba.querySelector('a');if(!a){nt.textContent='Click Make Bookmark first!';return}var ta=el('textarea','position:fixed;left:-9999px',document.body);ta.value=a.href;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();nt.textContent='Bookmark URL copied - paste it into a new bookmark URL field.'});b('Download','#555',function(){var bl=new Blob([ht.value],{type:'text/html'});var a=el('a','',document.body);a.href=URL.createObjectURL(bl);a.download=(nm.value||'page')+'.html';a.click();a.remove()});nm.focus()})()">⭐ D@%@$oul Studio — drag me to the bookmarks bar</a>
+
+    <div class="step">Manual way</div>
+    <ol>
+      <li>Copy everything from the box below</li>
+      <li>Right-click bookmarks bar → <b>Add page</b></li>
+      <li>Name: <code>D@%@$oul</code> • URL: paste the code → Save</li>
+    </ol>
+    <textarea id="bm" readonly></textarea>
+
+    <div class="step">What each button does</div>
+    <p>
+      <code>Convert</code> → data URL &nbsp;•&nbsp;
+      <code>Copy URL</code> → copies it &nbsp;•&nbsp;
+      <code>Test</code> → live preview<br>
+      <code>⭐ Make Bookmark</code> → green draggable link named whatever you typed &nbsp;•&nbsp;
+      <code>Copy Bookmark</code> → the javascript: URL &nbsp;•&nbsp;
+      <code>Download</code> → saves a .html file
+    </p>
+  </div>
+
+<script>
+document.getElementById('bm').value = document.querySelector('.drag-link').href;
+</script>
+</body>
+</html>
