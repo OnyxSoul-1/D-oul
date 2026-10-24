@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>D@%@$oul Studio v2 — Bookmark + Data URL Maker</title>
+<style>
+  body{background:#1e1e1e;color:#ccc;font-family:Consolas,monospace;display:flex;flex-direction:column;align-items:center;padding:40px 20px;margin:0}
+  .logo{font-size:34px;font-weight:bold;color:#4ec9b0;text-shadow:0 0 20px rgba(78,201,176,.4)}
+  .logo span{color:#007acc}
+  .card{background:#252526;border:1px solid #3b3b3b;border-radius:10px;padding:24px;max-width:820px;width:100%;margin-top:20px}
+  .drag-link{display:block;text-align:center;background:#8a2be2;color:#fff;font-weight:bold;font-size:16px;padding:14px;border-radius:8px;text-decoration:none;margin:10px 0;transition:.2s;cursor:grab}
+  .drag-link:hover{background:#9b4ff0}
+  textarea{width:100%;background:#111;color:#eee;border:1px solid #444;border-radius:6px;padding:8px;box-sizing:border-box;font-family:monospace;resize:vertical}
+  #bm{height:120px;color:#c792ea}
+  ol{line-height:1.9}
+  code{background:#111;padding:2px 6px;border-radius:4px;color:#4ec9b0;word-break:break-all}
+  .step{color:#858585;font-size:12px;text-transform:uppercase;letter-spacing:1px;margin-top:18px}
+  .row{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+  .row button{background:#007acc;color:#fff;border:0;border-radius:5px;padding:6px 10px;cursor:pointer;font-weight:600;font-family:inherit}
+  .row button.purple{background:#8a2be2}
+  .row button.green{background:#2d8a4e}
+  .row button.gold{background:#b58900}
+  .row button.grey{background:#555}
+  .row button:hover{filter:brightness(1.15)}
+  .meter{height:6px;background:#111;border-radius:3px;overflow:hidden;margin:4px 0}
+  .meter > div{height:100%;background:#4ec9b0;width:0;transition:.2s}
+  .warn{color:#f0c850;font-size:12px;margin-top:4px}
+  .err{color:#f85149;font-size:12px;margin-top:4px}
+  .note{color:#858585;font-size:11px;margin-top:6px}
+  .out{margin-top:8px}
+</style>
+</head>
+<body>
+  <div class="logo">D@%@$oul <span>Studio</span></div>
+  <div style="color:#858585">HTML → Named Bookmark + Data URL 龱𝓝丫〤丂龱ㄩ㇄ · v2</div>
+
+  <div class="card">
+    <div class="step">Install</div>
+    <p>Press <code>Ctrl+Shift+B</code> to show the bookmarks bar, then <b>drag this button onto it</b>:</p>
+    <a class="drag-link" href="javascript:(function(){if(document.getElementById('__ds')){document.getElementById('__ds').remove();return}var D=document,C=D.createElement('div');D.body.appendChild(C);var s=D.createElement('script');s.src='https://cdn.jsdelivr.net/gh/OnyxSoul-1/D-oul@main/studio.js';s.onerror=function(){C.textContent='D-oul Studio: could not load studio.js (offline, CSP, or repo path)'};C.appendChild(s)})()">⭐ D@%@$oul Studio — drag me to the bookmarks bar</a>
+    <div class="note">The drag button now loads <code>studio.js</code> from the repo via jsDelivr, so the panel stays small and updateable. For full offline, use the manual way below.</div>
+
+    <div class="step">Manual way (offline, no CDN)</div>
+    <ol>
+      <li>Copy everything from the box below</li>
+      <li>Right-click bookmarks bar → <b>Add page</b></li>
+      <li>Name: <code>D@%@$oul</code> • URL: paste the code → Save</li>
+    </ol>
+    <textarea id="bm" readonly></textarea>
+
+    <div class="step">HTML input</div>
+    <textarea id="html" style="height:160px" placeholder="Paste full HTML here..."></textarea>
+    <div class="meter"><div id="meterBar"></div></div>
+    <div id="sizeInfo" class="note">0 chars</div>
+
+    <div class="step">Actions</div>
+    <div class="row">
+      <button id="convert">Convert → data URL</button>
+      <button id="copyUrl" class="gold">Copy URL</button>
+      <button id="test" class="green">Test (preview)</button>
+      <button id="mkBm" class="purple">⭐ Make Bookmark</button>
+      <button id="copyBm" class="purple">Copy Bookmark</button>
+      <button id="download" class="grey">Download .html</button>
+    </div>
+    <div class="row">
+      <label style="font-size:12px"><input type="checkbox" id="newTab" checked> bookmarklet opens in new tab</label>
+    </div>
+    <div class="out"><textarea id="out" readonly style="height:90px" placeholder="data:text/html;charset=utf-8;base64,..."></textarea></div>
+    <div id="msg" class="note"></div>
+    <div id="dragZone"></div>
+  </div>
+
+<script src="studio.js"></script>
+<script>
+  document.getElementById('bm').value = document.querySelector('.drag-link').href;
+</script>
+</body>
+</html>
