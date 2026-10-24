@@ -2,8 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>D@%@$oul Studio v3</title>
+<title>D@%@$oul Studio v4</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#1e1e1e">
 <style>
   :root{--bg:#1e1e1e;--panel:#252526;--line:#3b3b3b;--fg:#ccc;--dim:#858585;--teal:#4ec9b0;--blue:#007acc;--gold:#b58900;--purple:#8a2be2;--green:#2d8a4e;--red:#f85149}
   html,body{margin:0;height:100%;background:var(--bg);color:var(--fg);font-family:Consolas,monospace}
@@ -20,8 +22,8 @@
   textarea,input,pre{font-family:inherit}
   textarea{width:100%;box-sizing:border-box;background:#111;color:#eee;border:1px solid var(--line);border-radius:6px;padding:8px;font-size:13px;resize:vertical;min-height:110px;margin:4px 0}
   textarea[readonly]{color:var(--teal)}
-  input[type=text],input:not([type]){width:100%;box-sizing:border-box;background:#111;color:#eee;border:1px solid var(--line);border-radius:6px;padding:6px 8px;font-size:13px;margin:4px 0}
-  .row{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+  input[type=text],input:not([type]),input[type=password]{width:100%;box-sizing:border-box;background:#111;color:#eee;border:1px solid var(--line);border-radius:6px;padding:6px 8px;font-size:13px;margin:4px 0}
+  .row{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;align-items:center}
   .row button,.tb{background:var(--blue);color:#fff;border:0;border-radius:5px;padding:6px 12px;cursor:pointer;font-family:inherit;font-weight:600;font-size:12px}
   .row button:hover,.tb:hover{filter:brightness(1.15)}
   .row button.purple,.tb.purple{background:var(--purple)}
@@ -38,11 +40,12 @@
   .split{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   @media(max-width:700px){.split{grid-template-columns:1fr}}
   label{font-size:12px;color:var(--dim);display:block;margin-top:8px}
+  .diff-add{color:var(--green)} .diff-del{color:var(--red)} .diff-same{color:var(--dim)}
 </style>
 </head>
 <body>
 <header>
-  <div class="logo">D@%@$oul <span>Studio</span> <small style="color:var(--dim);font-weight:normal;font-size:12px">v3</small></div>
+  <div class="logo">D@%@$oul <span>Studio</span> <small style="color:var(--dim);font-weight:normal;font-size:12px">v4</small></div>
   <input id="q" placeholder="tool search…  Ctrl+K">
 </header>
 <nav id="tools"></nav>
